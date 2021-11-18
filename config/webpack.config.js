@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -167,6 +167,11 @@ module.exports = function (webpackEnv) {
         ? 'source-map'
         : false
       : isEnvDevelopment && 'cheap-module-source-map',
+    externals: {
+      // 'cloud-react': 'CloudReact',
+      react: 'React',
+      // 'react-dom': 'ReactDOM',
+    },
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS bundle.
     entry:
@@ -393,7 +398,7 @@ module.exports = function (webpackEnv) {
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: paths.appSrc,
+              include: [paths.appSrc, path.resolve('node_modules/@test')],
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(
